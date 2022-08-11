@@ -9,10 +9,19 @@
             
             if(file_exists("../private/view/" . $view . ".view.php")) 
             {
-                return file_get_contents ("../private/view/" . $view . ".view.php");
+                require ("../private/view/" . $view . ".view.php");
             } else {
-                return file_get_contents ("../private/view/error.view.php");
+                require ("../private/view/error.view.php");
             }
+        }
+
+        public function load_model($model) {
+            if(file_exists("../private/models/".ucfirst($model).".php")) {
+                require("../private/models/".ucfirst($model).".php");
+                return $model = new $model();
+            }
+
+            return false;
         }
     }
 ?>
